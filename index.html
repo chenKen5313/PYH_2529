@@ -9,7 +9,7 @@
 <meta property="og:description" content="两个人，四天，沿着海慢慢玩釜山。"/>
 <meta property="og:image" content="images/busan-social-cover.png"/>
 <link rel="icon" href="favicon.svg"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
 <style>
 :root{--paper:#f1eadb;--ink:#17272a;--coral:#ef6b3a;--teal:#326d75;--sun:#d0a22c;--line:rgba(23,39,42,.18)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Noto Sans SC","Microsoft YaHei",Arial,sans-serif;background-image:radial-gradient(rgba(23,39,42,.08) .6px,transparent .6px);background-size:5px 5px}button,a{font:inherit}button{color:inherit}a{color:inherit}
@@ -31,16 +31,14 @@ footer{padding:32px 4.5vw;display:grid;grid-template-columns:1fr 1.2fr auto;gap:
 .flightStrip>div:first-child{text-align:left}.flightStrip>div:last-child{text-align:right}.flightStrip small{display:block;color:#9fc6c8;font-size:9px;letter-spacing:.2em}.flightStrip b{display:block;font:20px Georgia,serif;margin:7px 0}.flightStrip b i{color:var(--coral);font-style:normal;margin:0 8px}.flightStrip span{font-size:10px;color:#c9d3d2}.flightNo{text-align:center!important;border-inline:1px solid rgba(255,255,255,.25);padding:0 28px;font:14px Georgia,serif}.flightNo span{font-size:7px;letter-spacing:.14em}
 @media(max-width:900px){.flightStrip{grid-template-columns:1fr 1fr}.flightNo{display:none}}
 @media(max-width:560px){.flightStrip{grid-template-columns:1fr;padding:20px 18px}.flightStrip>div:last-child{text-align:left;border-top:1px solid rgba(255,255,255,.2);padding-top:16px}}
-.realMapWrap{position:relative;min-height:760px;background:#9fc3c5;overflow:hidden}.realMap{position:absolute;inset:0;z-index:1}.realMapHead{position:absolute;z-index:500;top:18px;left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 36px);background:rgba(23,39,42,.94);color:#fff;padding:10px 15px;border-radius:3px;box-shadow:0 6px 18px rgba(23,39,42,.22);pointer-events:none}.realMapHead span{font-size:10px;font-weight:800;letter-spacing:.14em}.realMapHead small{margin-left:12px;color:#b8d4d5;font-size:9px}.map-pin-shell{background:transparent!important;border:0!important}.real-pin{display:flex;align-items:center;gap:7px;background:rgba(241,234,219,.96);border:1px solid var(--ink);border-radius:99px;padding:4px 9px 4px 4px;box-shadow:3px 3px 0 rgba(23,39,42,.8);white-space:nowrap;cursor:pointer}.real-pin b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;font:13px Georgia,serif}.real-pin span{font-size:10px;font-weight:800}.real-pin.is-active{background:var(--coral);color:#fff;transform:scale(1.06)}.real-pin.is-active b{background:#fff;color:var(--coral)}.leaflet-container{font-family:"Noto Sans SC","Microsoft YaHei",Arial,sans-serif}.leaflet-control-attribution{font-size:8px!important}.map-error{height:100%;display:grid;place-items:center;background:#9fc3c5;color:var(--ink);font-size:12px;font-weight:700}
-@media(max-width:900px){.realMapWrap{height:58vh;min-height:480px}.realMapHead{top:12px}.realMapHead small{display:none}}
+.mapWrap{position:relative;min-height:760px;background:linear-gradient(165deg,#c9e4e7 0%,#d4e8ea 20%,#e8ede0 60%,#f1eadb 100%);overflow:hidden}.mapSvg{width:100%;height:100%;position:absolute;inset:0}.mapHead{position:absolute;z-index:5;top:18px;left:50%;transform:translateX(-50%);background:rgba(23,39,42,.94);color:#fff;padding:10px 15px;border-radius:3px;box-shadow:0 6px 18px rgba(23,39,42,.22);pointer-events:none;white-space:nowrap}.mapHead span{font-size:10px;font-weight:800;letter-spacing:.14em}.mapHead small{margin-left:12px;color:#b8d4d5;font-size:9px}.mapPin{cursor:pointer;transition:transform .15s}.mapPin:hover{transform:scale(1.12)}.mapPin circle.pinBg{fill:rgba(241,234,219,.96);stroke:var(--ink);stroke-width:1.5}.mapPin.isActive circle.pinBg{fill:var(--coral);stroke:var(--coral)}.mapPin text.pinNum{fill:var(--ink);font:bold 13px Georgia,serif;text-anchor:middle;dominant-baseline:central}.mapPin.isActive text.pinNum{fill:#fff}.mapPin text.pinLabel{fill:var(--ink);font:9px "Noto Sans SC","Microsoft YaHei",sans-serif;text-anchor:start;dominant-baseline:central}.mapPin.isActive text.pinLabel{fill:var(--coral);font-weight:800}.mapLegend{position:absolute;left:18px;bottom:18px;background:rgba(241,234,219,.94);padding:10px 14px;font-size:9px;letter-spacing:.1em;border:1px solid var(--ink);z-index:5;display:flex;gap:16px}.mapLegend i{font-style:normal;color:#69716d;margin-left:4px}.seaLabel{position:absolute;right:5%;bottom:14%;font:15px/1.5 Georgia,serif;letter-spacing:.16em;color:rgba(23,39,42,.35);text-align:right;pointer-events:none}.seaLabel i{font:10px sans-serif;letter-spacing:.08em;display:block}
+@media(max-width:900px){.mapWrap{height:58vh;min-height:480px}.mapHead{top:12px}.mapHead small{display:none}}
+@media(max-width:560px){.mapWrap{height:55vh;min-height:450px}.mapHead{font-size:9px}.seaLabel{font-size:11px}}
 @media(max-width:560px){.realMapWrap{height:55vh;min-height:450px}.real-pin{padding-right:6px}.real-pin span{display:none}.real-pin.is-active span{display:block}.realMapHead{font-size:9px}}
 </style>
 </head>
 <body>
 <div id="root"></div>
-
-<!-- Leaflet -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <!-- React 18 UMD (stable & reliable) -->
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -50,7 +48,7 @@ footer{padding:32px 4.5vw;display:grid;grid-template-columns:1fr 1.2fr auto;gap:
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <script type="text/babel" data-presets="react">
-const { createElement, useEffect, useMemo, useRef, useState, Fragment } = React;
+const { createElement, useEffect, useMemo, useState } = React;
 
 /* ── DATA ── */
 const stops = [
@@ -84,47 +82,34 @@ const coordinates = {
 
 /* ── RealMap Component ── */
 function RealMap({items, selected, onSelect}) {
-  const hostRef = useRef(null);
-  useEffect(() => {
-    const host = hostRef.current;
-    if (!host) return;
-    let cancelled = false;
-    let map;
-    const L = window.L;
-    if (!L) {
-      host.innerHTML = '<div class="map-error">地图加载失败，请检查网络后刷新</div>';
-      return;
-    }
-    map = L.map(host, {zoomControl: true, scrollWheelZoom: false, attributionControl: true});
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 19, attribution: '© OpenStreetMap contributors'}).addTo(map);
-
-    const points = items.map(s => coordinates[s.id]).filter(Boolean);
-    if (points.length > 1) {
-      L.polyline(points, {color: '#ef6b3a', weight: 4, opacity: 0.9, dashArray: '9 8'}).addTo(map);
-    }
-    items.forEach(s => {
-      const coord = coordinates[s.id];
-      if (!coord) return;
-      const active = s.id === selected;
-      const icon = L.divIcon({
-        className: 'map-pin-shell',
-        html: '<button class="real-pin' + (active ? ' is-active' : '') + '" aria-label="' + s.name + '"><b>' + s.order + '</b><span>' + s.name + '</span></button>',
-        iconSize: [130, 50], iconAnchor: [18, 18]
-      });
-      L.marker(coord, {icon, title: s.name}).addTo(map).on('click', () => onSelect(s.id));
-    });
-
-    if (points.length === 1) map.setView(points[0], 13);
-    else if (points.length > 1) map.fitBounds(L.latLngBounds(points), {padding: [42, 42], maxZoom: 13});
-    setTimeout(() => { if (map) map.invalidateSize(); }, 100);
-
-    return () => { cancelled = true; if (map) map.remove(); };
-  }, [items, selected, onSelect]);
+  const project = (lat, lng) => [40 + (lng - 128.92) / 0.29 * 560, 40 + (35.195 - lat) / 0.125 * 480];
+  const pts = items.map(s => { const [sx, sy] = project(coordinates[s.id][0], coordinates[s.id][1]); return { ...s, sx, sy }; });
+  const routeD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.sx.toFixed(1)} ${p.sy.toFixed(1)}`).join(' ');
 
   return (
-    <div className="realMapWrap">
-      <div className="realMapHead"><span>真实地理路线 · DAY {items[0]?.day}</span><small>拖动地图 · 点击编号查看详情</small></div>
-      <div ref={hostRef} className="realMap"/>
+    <div className="mapWrap">
+      <div className="mapHead"><span>路线地图 · DAY {items[0]?.day}</span><small>点击编号查看详情</small></div>
+      <svg className="mapSvg" viewBox="0 0 640 560" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="sea" cx="65%" cy="55%"><stop offset="0%" stopColor="#c9e4e7"/><stop offset="100%" stopColor="#e8ede0"/></radialGradient>
+          <filter id="soft"><feGaussianBlur stdDeviation="1.5"/></filter>
+        </defs>
+        <rect width="640" height="560" fill="url(#sea)"/>
+        <path d="M 0 0 L 640 0 L 640 130 Q 590 125 560 140 Q 530 155 510 170 Q 520 190 540 195 Q 520 215 480 230 Q 430 250 380 280 Q 330 315 290 360 Q 250 400 225 450 Q 200 490 165 540 L 0 560 Z" fill="rgba(241,234,219,.55)" stroke="none"/>
+        <path d="M 640 130 Q 590 125 560 140 Q 530 155 510 170 Q 520 190 540 195 Q 520 215 480 230 Q 430 250 380 280 Q 330 315 290 360 Q 250 400 225 450 Q 200 490 165 540" fill="none" stroke="rgba(23,39,42,.12)" strokeWidth="2.5" strokeDasharray="6 4"/>
+        <path d={routeD} fill="none" stroke="#ef6b3a" strokeWidth="3.5" strokeDasharray="10 7" strokeLinecap="round" opacity="0.85"/>
+        {pts.map(p => (
+          <g key={p.id} className={'mapPin' + (p.id === selected ? ' isActive' : '')} transform={`translate(${p.sx.toFixed(1)},${p.sy.toFixed(1)})`} onClick={() => onSelect(p.id)}>
+            <circle className="pinBg" r="17"/>
+            <text className="pinNum" y="1">{p.order}</text>
+            <text className="pinLabel" x="24" y="1">{p.name}</text>
+          </g>
+        ))}
+        <text x="500" y="22" fill="rgba(23,39,42,.45)" fontFamily="Georgia,serif" fontSize="12" letterSpacing="0.16em">DONG HAE</text>
+        <text x="50" y="545" fill="rgba(23,39,42,.35)" fontFamily="Georgia,serif" fontSize="11" letterSpacing="0.12em">BUSAN</text>
+      </svg>
+      <div className="mapLegend"><span>― 路线</span><i>推荐顺序</i><span style={{marginLeft:14}}>● 停靠点</span><i>点击查看详情</i></div>
+      <div className="seaLabel">东海<i>East Sea</i></div>
     </div>
   );
 }
