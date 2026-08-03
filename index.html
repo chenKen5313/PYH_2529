@@ -7,8 +7,8 @@
 <meta name="description" content="海云台、清沙浦、广安里、白浅滩、松岛与南浦洞的四日互动旅行地图。"/>
 <meta property="og:title" content="PYH 大猪头"/>
 <meta property="og:description" content="两个人，四天，沿着海慢慢玩釜山。"/>
-<meta property="og:image" content="/images/busan-social-cover.png"/>
-<link rel="icon" href="/favicon.svg"/>
+<meta property="og:image" content="images/busan-social-cover.png"/>
+<link rel="icon" href="favicon.svg"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 :root{--paper:#f1eadb;--ink:#17272a;--coral:#ef6b3a;--teal:#326d75;--sun:#d0a22c;--line:rgba(23,39,42,.18)}
@@ -54,16 +54,16 @@ const { createElement, useEffect, useMemo, useRef, useState, Fragment } = React;
 
 /* ── DATA ── */
 const stops = [
-  { id:"stay",day:1,order:1,name:"海云台 · LCT",ko:"해운대 · 엘시티",area:"东海岸",x:79,y:30,time:"11:00",stay:"寄存行李 · 30 min",transit:"从中洞站步行约 12–18 分钟",image:"/images/stay.jpg",vibe:"把酒店当作东海岸据点，先放下行李，再沿海岸向东走。",play:["海云台沙滩慢走","BUSAN X the SKY（天气好再上）","传统市场边走边吃"],eat:["猪肉汤饭","糖饼 / 鱼糕","海鲜刀削面"],tip:"住宿截图显示近 LCT、可寄存行李；先向房东确认具体门牌与入住时间。",nav:"해운대 엘시티" },
-  { id:"mipo",day:1,order:2,name:"尾浦站 · 天空胶囊",ko:"미포정거장",area:"东海岸",x:86,y:25,time:"13:30",stay:"乘车约 30 min",transit:"从 LCT/海滩步行约 10–15 分钟",image:"/images/haeundae.jpg",vibe:"彩色小车贴着海岸线慢慢向清沙浦移动，最适合把节奏放慢。",play:["天空胶囊单程","海岸步道拍照","日落前逆光海景"],eat:["尾浦烤贝","海边便利店冰咖啡"],tip:"胶囊仅尾浦—清沙浦，单程约 30 分钟；热门时段建议提前订。",nav:"해운대블루라인파크 미포정거장" },
-  { id:"cheongsapo",day:1,order:3,name:"清沙浦",ko:"청사포",area:"东海岸",x:94,y:18,time:"14:20",stay:"2.5–3 h",transit:"天空胶囊直达；返程可坐海岸列车或步行",image:"/images/cheongsapo.jpg",vibe:"铁路、灯塔、低矮渔村和突然出现的海，画面感最强的一站。",play:["红白灯塔","踏石观景台","海岸铁路路口"],eat:["烤贝一条街","海鲜拉面","海景咖啡"],tip:"铁路路口拍照要听从现场人员指挥，不停留在轨道区域。",nav:"청사포 다릿돌전망대" },
-  { id:"centum",day:2,order:1,name:"新世界 Centum City",ko:"신세계 센텀시티",area:"城市湾岸",x:58,y:38,time:"12:00",stay:"2–3 h",transit:"中洞站→Centum City，地铁约 25–35 分钟",image:"/images/gwangalli.jpg",vibe:"把最热的中午留给室内：购物、美食层、Spa Land 都在一栋里。",play:["百货逛街","Spa Land 汗蒸幕","电影殿堂建筑"],eat:["地下美食馆","韩式定食","甜品伴手礼"],tip:"营业时间会因楼层与日期不同；Spa Land 建议单独预留至少 2 小时。",nav:"신세계백화점 센텀시티점" },
-  { id:"gwangalli",day:2,order:2,name:"广安里",ko:"광안리해수욕장",area:"城市湾岸",x:45,y:45,time:"16:00",stay:"4–5 h",transit:"Centum City→广安站约 15 分钟，再步行约 10 分钟",image:"/images/working-holiday.jpg",vibe:"下午咖啡、傍晚沙滩、入夜看桥灯，一天的情绪在这里慢慢升高。",play:["海滩散步","广安大桥夜景","周末无人机秀（以公告为准）"],eat:["Working Holiday 海景早午餐","生鱼片 / 烤肉","民乐生鱼片中心"],tip:"烟花并非每晚都有；常态看点是桥梁灯光，活动日以水营区公告为准。",nav:"광안리해수욕장" },
-  { id:"huinnyeoul",day:3,order:1,name:"白浅滩文化村",ko:"흰여울문화마을",area:"西南海岸",x:18,y:67,time:"11:00",stay:"2.5–3 h",transit:"海云台出发约 70–90 分钟；建议地铁+公交或打车",image:"/images/huinnyeoul.jpg",vibe:"白墙小巷沿着山坡铺开，下面是绝影海岸步道，适合慢慢拍。",play:["海岸隧道","悬崖小巷","绝影海岸散步"],eat:["Having Moment 海景咖啡","黑芝麻拿铁","巴斯克蛋糕"],tip:"坡道和台阶多，穿防滑鞋；文化村是居民区，请降低音量。",nav:"흰여울문화마을" },
-  { id:"songdo",day:3,order:2,name:"松岛海水浴场",ko:"송도해수욕장",area:"西南海岸",x:11,y:79,time:"14:30",stay:"2.5 h",transit:"白浅滩→松岛打车约 15–25 分钟；公交约 35–50 分钟",image:"/images/songdo.jpg",vibe:"从海面上横渡到岩南公园，天气通透时值得选水晶车厢。",play:["海上缆车","松岛龙宫云桥","海岸散步路"],eat:["海鲜锅","烤贝","松岛海边咖啡"],tip:"缆车单程约 8–10 分钟，排队与公园散步另计；闭园前 30 分钟通常停止售票。",nav:"송도해상케이블카" },
-  { id:"nampo",day:3,order:3,name:"南浦洞 · BIFF",ko:"남포동 · 비프광장",area:"老城夜市",x:23,y:82,time:"18:00",stay:"3–4 h",transit:"松岛→南浦/BIFF 打车约 15–20 分钟；公交约 25–35 分钟",image:"/images/having-moment.jpg",vibe:"把晚饭变成一条路线：市场、街头小吃、老城商圈一路吃过去。",play:["BIFF 手印街","国际市场","富平罐头市场夜市"],eat:["糖饼","辣炒年糕 / 鱼糕","猪脚街"],tip:"市场之间步行即可；想吃夜市，把富平罐头市场放在最后。",nav:"BIFF광장" },
-  { id:"haeundae-last",day:4,order:1,name:"海云台慢收尾",ko:"해운대",area:"住处周边",x:76,y:34,time:"11:00",stay:"约 5 h",transit:"退房后寄存行李，全程步行为主",image:"/images/haeundae.jpg",vibe:"返程日不横穿城市：睡醒、吃饭、买东西，把漏掉的海边留白补上。",play:["海云台传统市场","海边最后一轮散步","Olive Young / 伴手礼补货"],eat:["鳗鱼 / 烤肉","猪肉汤饭","市场小吃"],tip:"建议 17:30 前取回行李；西面单程约 35–45 分钟，这天不建议再去。",nav:"해운대전통시장" },
-  { id:"airport",day:4,order:2,name:"金海国际机场",ko:"김해국제공항",area:"返程",x:25,y:42,time:"17:30",stay:"预留 2.5–3 h",transit:"海云台→机场约 70–95 分钟（地铁换轻轨）；打车常规约 50–70 分钟",image:"/images/busan-social-cover.png",vibe:"22:30 的航班不需要过早结束旅行，但晚高峰要给跨城交通留足余量。",play:["国际航班值机","退税 / 取货（如有）","安检后简单晚餐"],eat:["机场简餐","提前准备无机上餐的夜宵"],tip:"航班 9C6900 无餐食。建议最晚 19:00 抵达机场；若打车，也以 17:30–18:00 离开海云台为稳妥线。",nav:"김해국제공항 국제선" },
+  { id:"stay",day:1,order:1,name:"海云台 · LCT",ko:"해운대 · 엘시티",area:"东海岸",x:79,y:30,time:"11:00",stay:"寄存行李 · 30 min",transit:"从中洞站步行约 12–18 分钟",image:"images/stay.jpg",vibe:"把酒店当作东海岸据点，先放下行李，再沿海岸向东走。",play:["海云台沙滩慢走","BUSAN X the SKY（天气好再上）","传统市场边走边吃"],eat:["猪肉汤饭","糖饼 / 鱼糕","海鲜刀削面"],tip:"住宿截图显示近 LCT、可寄存行李；先向房东确认具体门牌与入住时间。",nav:"해운대 엘시티" },
+  { id:"mipo",day:1,order:2,name:"尾浦站 · 天空胶囊",ko:"미포정거장",area:"东海岸",x:86,y:25,time:"13:30",stay:"乘车约 30 min",transit:"从 LCT/海滩步行约 10–15 分钟",image:"images/haeundae.jpg",vibe:"彩色小车贴着海岸线慢慢向清沙浦移动，最适合把节奏放慢。",play:["天空胶囊单程","海岸步道拍照","日落前逆光海景"],eat:["尾浦烤贝","海边便利店冰咖啡"],tip:"胶囊仅尾浦—清沙浦，单程约 30 分钟；热门时段建议提前订。",nav:"해운대블루라인파크 미포정거장" },
+  { id:"cheongsapo",day:1,order:3,name:"清沙浦",ko:"청사포",area:"东海岸",x:94,y:18,time:"14:20",stay:"2.5–3 h",transit:"天空胶囊直达；返程可坐海岸列车或步行",image:"images/cheongsapo.jpg",vibe:"铁路、灯塔、低矮渔村和突然出现的海，画面感最强的一站。",play:["红白灯塔","踏石观景台","海岸铁路路口"],eat:["烤贝一条街","海鲜拉面","海景咖啡"],tip:"铁路路口拍照要听从现场人员指挥，不停留在轨道区域。",nav:"청사포 다릿돌전망대" },
+  { id:"centum",day:2,order:1,name:"新世界 Centum City",ko:"신세계 센텀시티",area:"城市湾岸",x:58,y:38,time:"12:00",stay:"2–3 h",transit:"中洞站→Centum City，地铁约 25–35 分钟",image:"images/gwangalli.jpg",vibe:"把最热的中午留给室内：购物、美食层、Spa Land 都在一栋里。",play:["百货逛街","Spa Land 汗蒸幕","电影殿堂建筑"],eat:["地下美食馆","韩式定食","甜品伴手礼"],tip:"营业时间会因楼层与日期不同；Spa Land 建议单独预留至少 2 小时。",nav:"신세계백화점 센텀시티점" },
+  { id:"gwangalli",day:2,order:2,name:"广安里",ko:"광안리해수욕장",area:"城市湾岸",x:45,y:45,time:"16:00",stay:"4–5 h",transit:"Centum City→广安站约 15 分钟，再步行约 10 分钟",image:"images/working-holiday.jpg",vibe:"下午咖啡、傍晚沙滩、入夜看桥灯，一天的情绪在这里慢慢升高。",play:["海滩散步","广安大桥夜景","周末无人机秀（以公告为准）"],eat:["Working Holiday 海景早午餐","生鱼片 / 烤肉","民乐生鱼片中心"],tip:"烟花并非每晚都有；常态看点是桥梁灯光，活动日以水营区公告为准。",nav:"광안리해수욕장" },
+  { id:"huinnyeoul",day:3,order:1,name:"白浅滩文化村",ko:"흰여울문화마을",area:"西南海岸",x:18,y:67,time:"11:00",stay:"2.5–3 h",transit:"海云台出发约 70–90 分钟；建议地铁+公交或打车",image:"images/huinnyeoul.jpg",vibe:"白墙小巷沿着山坡铺开，下面是绝影海岸步道，适合慢慢拍。",play:["海岸隧道","悬崖小巷","绝影海岸散步"],eat:["Having Moment 海景咖啡","黑芝麻拿铁","巴斯克蛋糕"],tip:"坡道和台阶多，穿防滑鞋；文化村是居民区，请降低音量。",nav:"흰여울문화마을" },
+  { id:"songdo",day:3,order:2,name:"松岛海水浴场",ko:"송도해수욕장",area:"西南海岸",x:11,y:79,time:"14:30",stay:"2.5 h",transit:"白浅滩→松岛打车约 15–25 分钟；公交约 35–50 分钟",image:"images/songdo.jpg",vibe:"从海面上横渡到岩南公园，天气通透时值得选水晶车厢。",play:["海上缆车","松岛龙宫云桥","海岸散步路"],eat:["海鲜锅","烤贝","松岛海边咖啡"],tip:"缆车单程约 8–10 分钟，排队与公园散步另计；闭园前 30 分钟通常停止售票。",nav:"송도해상케이블카" },
+  { id:"nampo",day:3,order:3,name:"南浦洞 · BIFF",ko:"남포동 · 비프광장",area:"老城夜市",x:23,y:82,time:"18:00",stay:"3–4 h",transit:"松岛→南浦/BIFF 打车约 15–20 分钟；公交约 25–35 分钟",image:"images/having-moment.jpg",vibe:"把晚饭变成一条路线：市场、街头小吃、老城商圈一路吃过去。",play:["BIFF 手印街","国际市场","富平罐头市场夜市"],eat:["糖饼","辣炒年糕 / 鱼糕","猪脚街"],tip:"市场之间步行即可；想吃夜市，把富平罐头市场放在最后。",nav:"BIFF광장" },
+  { id:"haeundae-last",day:4,order:1,name:"海云台慢收尾",ko:"해운대",area:"住处周边",x:76,y:34,time:"11:00",stay:"约 5 h",transit:"退房后寄存行李，全程步行为主",image:"images/haeundae.jpg",vibe:"返程日不横穿城市：睡醒、吃饭、买东西，把漏掉的海边留白补上。",play:["海云台传统市场","海边最后一轮散步","Olive Young / 伴手礼补货"],eat:["鳗鱼 / 烤肉","猪肉汤饭","市场小吃"],tip:"建议 17:30 前取回行李；西面单程约 35–45 分钟，这天不建议再去。",nav:"해운대전통시장" },
+  { id:"airport",day:4,order:2,name:"金海国际机场",ko:"김해국제공항",area:"返程",x:25,y:42,time:"17:30",stay:"预留 2.5–3 h",transit:"海云台→机场约 70–95 分钟（地铁换轻轨）；打车常规约 50–70 分钟",image:"images/busan-social-cover.png",vibe:"22:30 的航班不需要过早结束旅行，但晚高峰要给跨城交通留足余量。",play:["国际航班值机","退税 / 取货（如有）","安检后简单晚餐"],eat:["机场简餐","提前准备无机上餐的夜宵"],tip:"航班 9C6900 无餐食。建议最晚 19:00 抵达机场；若打车，也以 17:30–18:00 离开海云台为稳妥线。",nav:"김해국제공항 국제선" },
 ];
 
 const days = [
@@ -157,7 +157,7 @@ function App() {
 
       <section className="intro">
         <div className="introCopy"><p className="eyebrow">COAST / COFFEE / CITY LIGHTS</p><h1>沿着海，<br/><i>慢慢玩釜山。</i></h1><p className="lede">住在海云台，把四天拆成四片相邻区域。每天只走一条主线，留出咖啡、拍照和临时改变主意的时间。</p></div>
-        <figure className="heroPhoto"><img src="/images/cheongsapo.jpg" alt="清沙浦临海街道实拍"/><figcaption>CHEONGSAPO · 35.160°N</figcaption></figure>
+        <figure className="heroPhoto"><img src="images/cheongsapo.jpg" alt="清沙浦临海街道实拍"/><figcaption>CHEONGSAPO · 35.160°N</figcaption></figure>
         <div className="routeStats"><div><b>4</b><span>个完整白天</span></div><div><b>9</b><span>个停靠点</span></div><div><b>0</b><span>次无谓折返</span></div></div>
       </section>
 
@@ -228,7 +228,7 @@ function App() {
       )}
 
       <section className="foodSpread">
-        <div className="foodPhoto"><img src="/images/working-holiday.jpg" alt="广安里 Working Holiday 海景早午餐"/><span>GWANGALLI · BRUNCH</span></div>
+        <div className="foodPhoto"><img src="images/working-holiday.jpg" alt="广安里 Working Holiday 海景早午餐"/><span>GWANGALLI · BRUNCH</span></div>
         <div className="foodCopy">
           <p className="eyebrow">TWO CAFÉS FROM YOUR NOTES</p>
           <h2>海景要配<br/><i>一杯慢时间。</i></h2>
